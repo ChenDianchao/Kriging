@@ -14,7 +14,7 @@ public class Output {
 	public static void main(String[] args) throws IOException 
 	{
 		// TODO Auto-generated method stub
-		File file = new File("C:\\Users\\admin\\Desktop\\æ¯•ä¸šè®¾è®¡\\DEM\\my.txt");
+		File file = new File("C:\\Users\\admin\\Desktop\\±ÏÒµÉè¼Æ\\DEM\\my.txt");
 		ArrayList <DEM_Point> dem = KrigingCore.gridData();
 		BufferedWriter bw = new BufferedWriter( new FileWriter(file));
 		for(int i = 0; i < dem.size(); i++)
@@ -24,6 +24,6 @@ public class Output {
 		}
 		
 		bw.close();
-		System.out.println("æ–‡ä»¶å·²æˆåŠŸå†™å…¥ï¼ï¼!");
+		System.out.println("ÎÄ¼þÒÑ³É¹¦Ð´Èë£¡£¡!");
 	}
 }

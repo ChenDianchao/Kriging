@@ -11,27 +11,27 @@ import bean.Discrete_Point;
 
 public class Input {
 	/**
-	 * 璇诲彇鏁版嵁瀛樺偍鍒版暟缁勪腑
+	 * 读取数据存储到数组中
 	 * @return
 	 */	
 	public static ArrayList<ArrayList<Discrete_Point>> readFile()
 	{
-		File file = new File("D:\java椤圭洰\my_project\file\DEM - 鍓湰.txt");
+		File file = new File("D:\\java项目\\my_project\\file\\data.txt");
 		BufferedReader reader= null;
 		
-		ArrayList<ArrayList<Discrete_Point>> sum= null;//鍔ㄦ�佷簩缁存暟缁剆um
-		//ArrayList<Double> Xs=new ArrayList<Double>();//鏁扮粍X
-		//ArrayList<Double> Ys=new ArrayList<Double>();//鏁扮粍Y
-		//ArrayList<Double> Zs=new ArrayList<Double>();//鏁扮粍Z
+		ArrayList<ArrayList<Discrete_Point>> sum= null;//动态二维数组sum
+		//ArrayList<Double> Xs=new ArrayList<Double>();//数组X
+		//ArrayList<Double> Ys=new ArrayList<Double>();//数组Y
+		//ArrayList<Double> Zs=new ArrayList<Double>();//数组Z
 		
 		try 
 		{
-			reader = new BufferedReader(new FileReader(file));//璇诲彇鏁版嵁
+			reader = new BufferedReader(new FileReader(file));//读取数据
 			String tempString = null;
 			//System.out.println(tempString);
 			int count = 0;
 			
-			//灏嗙偣瀛樺偍鍒板姩鎬佹暟缁勪腑
+			//将点存储到动态数组中
 			sum = new ArrayList<ArrayList<Discrete_Point>>();
 			ArrayList<Discrete_Point> points = null;
 			while((tempString = reader.readLine())!= null)
@@ -82,7 +82,7 @@ public class Input {
 	/*public static void main(String[] args) {
 		ArrayList<ArrayList<Discrete_Point>> sum = readFile();
 		System.out.println(sum);
-		System.out.println("鏂囦欢瀵煎叆鎴愬姛");
+		System.out.println("文件导入成功");
 	}*/
 	
 }

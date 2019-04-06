@@ -14,10 +14,10 @@ import achievement.meshing;
 public class KrigingCore {
 	
 	/**
-	 * å…‹é‡Œé‡‘æ³•
+	 * ¿ËÀï½ğ·¨
 	 * @return
 	 */
-	//æ‹Ÿåˆå‡½æ•°    åˆæ­¥ä¼°ç®—å˜ç¨‹a=30.000  åŸºå°å€¼ä¸º13.500  å—é‡‘å¸¸æ•°ä¸º0.000
+	//ÄâºÏº¯Êı    ³õ²½¹ÀËã±ä³Ìa=30.000  »ùÌ¨ÖµÎª13.500  ¿é½ğ³£ÊıÎª0.000
 	/*public static void fitting(double[][] z,double[][] h)
 	{
 		//temp = fitting(data,ZD);
@@ -40,7 +40,7 @@ public class KrigingCore {
 		}
 		//System.out.println(Zmax + "  " + Zmin);
 	
-		for(int k = 5; k < ( Zmax + 5 ); k += 5) //kä¸ºæ­¥é•¿
+		for(int k = 5; k < ( Zmax + 5 ); k += 5) //kÎª²½³¤
 		{	
 			int count = 0 ;
 			double distance = 0;
@@ -66,11 +66,11 @@ public class KrigingCore {
 		}
 	}*/
 	
-	//åŠæ–¹å·®å‡½æ•°ï¼Œä¹Ÿç§°å˜å·®å‡½æ•°ã€‚é‡‡ç”¨çƒçŠ¶æ¨¡å‹å…¬å¼ï¼ˆå¯¹æ°”è±¡è¦ç´ æ’å€¼æ—¶é€šå¸¸é‡‡ç”¨çƒçŠ¶æ¨¡å‹ï¼‰
+	//°ë·½²îº¯Êı£¬Ò²³Æ±ä²îº¯Êı¡£²ÉÓÃÇò×´Ä£ĞÍ¹«Ê½£¨¶ÔÆøÏóÒªËØ²åÖµÊ±Í¨³£²ÉÓÃÇò×´Ä£ĞÍ£©
 	public static double function(double h)
 	{
-		double r = 0;//åˆå§‹åŒ–å˜å·®å‡½æ•°å€¼
-		if (h == 0) //hä¸ºæ­¥é•¿
+		double r = 0;//³õÊ¼»¯±ä²îº¯ÊıÖµ
+		if (h == 0) //hÎª²½³¤
 		{
 			r = 0;
 			} 
@@ -79,13 +79,13 @@ public class KrigingCore {
 			r = 0.000 + 13.500 * ((3 * h * h * h * h) / (4 * 30 * 30 * 30 * 30));
 		} 
 		else 
-		{//r=C0+C  åŸºå°å€¼
+		{//r=C0+C  »ùÌ¨Öµ
 			r = 13.500;
 		}
 		return r;
 
 	}
-	//å˜å·®å‡½æ•°  é‡‡ç”¨é«˜æ–¯æ¨¡å‹
+	//±ä²îº¯Êı  ²ÉÓÃ¸ßË¹Ä£ĞÍ
 	/*public double function(double h)
 	{
 		double r = 0;
@@ -103,24 +103,24 @@ public class KrigingCore {
 	public static ArrayList<DEM_Point> gridData()
 	//public static  void gridData()
 	{
-		ArrayList<DEM_Point> demPoints = meshing.border();//ç½‘æ ¼ç‚¹æ•°ç»„
-		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();//ç¦»æ•£ç‚¹æ•°æ®
+		ArrayList<DEM_Point> demPoints = meshing.border();//Íø¸ñµãÊı×é
+		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();//ÀëÉ¢µãÊı¾İ
 		//System.out.println(demPoints);
 		
 		int count = 0;
 		int XLength = sum.size();
 		//System.out.println( XLength ) ;
-		ArrayList<DEM_Point> dem = new ArrayList<DEM_Point>();//æ’å€¼åæ ¼ç½‘ç‚¹æ•°æ®
-		double[] Xs = new double[XLength];//ç¦»æ•£ç‚¹Xçš„æ•°ç»„
-		double[] Ys = new double[XLength];//ç¦»æ•£ç‚¹Yçš„æ•°ç»„
-		double[] Zs = new double[XLength];//ç¦»æ•£ç‚¹Zçš„æ•°ç»„
-		double[] rData = new double[XLength + 1];//ç½‘æ ¼ç‚¹ä¸ç¦»æ•£ç‚¹ä¹‹é—´çš„è·ç¦»
-		double[][] ZD = new double[XLength+1][XLength + 1];//ç¦»æ•£ç‚¹Zçš„å·®å€¼
-		double[][] data = new double[XLength + 1][XLength + 1];//ç¦»æ•£ç‚¹ä¸ç¦»æ•£ç‚¹çš„è·ç¦»
+		ArrayList<DEM_Point> dem = new ArrayList<DEM_Point>();//²åÖµºó¸ñÍøµãÊı¾İ
+		double[] Xs = new double[XLength];//ÀëÉ¢µãXµÄÊı×é
+		double[] Ys = new double[XLength];//ÀëÉ¢µãYµÄÊı×é
+		double[] Zs = new double[XLength];//ÀëÉ¢µãZµÄÊı×é
+		double[] rData = new double[XLength + 1];//Íø¸ñµãÓëÀëÉ¢µãÖ®¼äµÄ¾àÀë
+		double[][] ZD = new double[XLength+1][XLength + 1];//ÀëÉ¢µãZµÄ²îÖµ
+		double[][] data = new double[XLength + 1][XLength + 1];//ÀëÉ¢µãÓëÀëÉ¢µãµÄ¾àÀë
 		List<Discrete_Point> points = null;
 			
 		//System.out.println(sum.size());
-		//å–å‡ºç¦»æ•£ç‚¹å¹¶åˆ†å…¥æ•°ç»„Xs[],Ys[],Zs[]
+		//È¡³öÀëÉ¢µã²¢·ÖÈëÊı×éXs[],Ys[],Zs[]
 		for(int i = 0; i < sum.size(); i++)
 		{
 			points = new ArrayList<Discrete_Point>(sum.get(i));
@@ -140,7 +140,7 @@ public class KrigingCore {
 				System.out.println(Xs[i]);
 			}*/
 				
-			//æ±‚å‡ºå˜å·®å‡½æ•°  å³ç³»æ•°çŸ©é˜µ
+			//Çó³ö±ä²îº¯Êı  ¼´ÏµÊı¾ØÕó
 			for(int i = 0; i <= XLength ; i++ )
 			{
 				for(int j = 0; j <= XLength ; j++ )
@@ -184,15 +184,15 @@ public class KrigingCore {
 				}
 			}*/
 			
-			Matrix m = new Matrix( data );//æ ¹æ®äºŒç»´æ•°ç»„dataå¾—å‡ºçŸ©é˜µm
-			Matrix M = m.inverse(); //çŸ©é˜µmæ±‚é€†åå¾—åˆ°çš„çŸ©é˜µM
+			Matrix m = new Matrix( data );//¸ù¾İ¶şÎ¬Êı×édataµÃ³ö¾ØÕóm
+			Matrix M = m.inverse(); //¾ØÕómÇóÄæºóµÃµ½µÄ¾ØÕóM
 			
 			while(count < demPoints.size())
 			{
 				DEM_Point p = demPoints.get(count++);
-				double xp = p.getX();//æ ¼ç½‘ç‚¹X
-				double yp = p.getY();//æ ¼ç½‘ç‚¹Y
-				double zp = 0;//æ ¼ç½‘ç‚¹Z
+				double xp = p.getX();//¸ñÍøµãX
+				double yp = p.getY();//¸ñÍøµãY
+				double zp = 0;//¸ñÍøµãZ
 				//System.out.println(p);
 				for(int k = 0; k <= XLength; k++)
 				{
@@ -208,7 +208,7 @@ public class KrigingCore {
 					else
 						rData[k] = 1;
 				}
-				double[] rData2 = new double[XLength + 1];//æƒé‡ç³»æ•°Î»i
+				double[] rData2 = new double[XLength + 1];//È¨ÖØÏµÊı¦Ëi
 				for( int k = 0; k < (XLength + 1); k++)
 				{
 					for(int k2 = 0; k2 < (XLength + 1); k2++)
@@ -217,14 +217,14 @@ public class KrigingCore {
 					}
 				}
 				
-				for(int k = 0; k < XLength; k++)//å¾—åˆ°ä¼°è®¡å€¼
+				for(int k = 0; k < XLength; k++)//µÃµ½¹À¼ÆÖµ
 				{
 					zp += Zs[k]*rData2[k];
 					//System.out.println(Zs[k] +" "+ rData2[k]+" "+ count);
 				}
 				
 				DecimalFormat df = new DecimalFormat("###.000");
-				double Zp = Double.parseDouble(df.format(zp));//ä¿ç•™å°æ•°ç‚¹åä¸‰ä½
+				double Zp = Double.parseDouble(df.format(zp));//±£ÁôĞ¡ÊıµãºóÈıÎ»
 				//System.out.println(zp+" "+ count);
 				dem.add(new DEM_Point(xp, yp, Zp));	
 			}
@@ -234,9 +234,9 @@ public class KrigingCore {
 
 	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("å¼€å§‹æ‰§è¡Œæ“ä½œ");
+		System.out.println("¿ªÊ¼Ö´ĞĞ²Ù×÷");
 		gridData();
-		System.out.println("å®Œæˆæ“ä½œ");
+		System.out.println("Íê³É²Ù×÷");
 
 	}*/
 

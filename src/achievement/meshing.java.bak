@@ -12,7 +12,7 @@ import bean.Discrete_Point;
 public class meshing {
 	
 	/**
-	 * ç¡®å®šæ …æ ¼ç½‘ç‚¹çš„åæ ‡
+	 * È·¶¨Õ¤¸ñÍøµãµÄ×ø±ê
 	 * @return
 	 */
 	public static ArrayList<DEM_Point> border()
@@ -20,8 +20,8 @@ public class meshing {
 	{
 		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();
 		//System.out.println(sum);
-		double[] Xs = new double [sum.size()];//ä¸€ç»´æ•°ç»„Xs
-		double[] Ys = new double [sum.size()];//æ•°ç»„Ys
+		double[] Xs = new double [sum.size()];//Ò»Î¬Êı×éXs
+		double[] Ys = new double [sum.size()];//Êı×éYs
 		List<Discrete_Point> points = null;
 		for(int i = 0; i < sum.size(); i++)
 		{
@@ -33,7 +33,7 @@ public class meshing {
 			Ys[i] = Y.get(0);
 		}
 		
-		//è®¾ç½®è¾¹ç•ŒèŒƒå›´
+		//ÉèÖÃ±ß½ç·¶Î§
 		double Xmax = Xs[0];
 		double Ymax = Ys[0];
 		double Xmin = Xs[0];
@@ -56,12 +56,12 @@ public class meshing {
 		int demXmin = (int) Xmin;
 		int demYmin = (int) Ymin;
 		
-		//è®¾æ ¼ç½‘å°ºå¯¸å–5
+		//Éè¸ñÍø³ß´çÈ¡5
 		int numX = (int) ((Xmax-Xmin)/5+1);
 		int numY = (int) ((Ymax-Ymin)/5+1);
 		//System.out.println(numX + "  " + numY);
 		
-		//è®¡ç®—æ ¼ç½‘ç‚¹åæ ‡
+		//¼ÆËã¸ñÍøµã×ø±ê
 		double[] demXs = new double[numX];
 		double[] demYs = new double[numY];
 		ArrayList<DEM_Point> demPoints = new ArrayList<DEM_Point>();
