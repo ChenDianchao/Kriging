@@ -153,7 +153,7 @@ public class KrigingCore {
 							
 							TempDis = Math.sqrt( ( (Xs[i]-Xs[j]) * (Xs[i]-Xs[j]) )
 									+ ( (Ys[i]-Ys[j]) * (Ys[i]-Ys[j]) ) );
-							ZD[i][j] =Math.abs(Zs[i] - Zs[j]);
+							ZD[i][j] =Math.abs(Zs[i] - Zs[j]);//求绝对值
 							
 							//System.out.println(TempDis);
 							data[i][j] = function (TempDis);
