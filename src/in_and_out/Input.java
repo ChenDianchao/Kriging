@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-import bean.Discrete_Point;
+import bean.DEM_Point;
 
 
 public class Input {
@@ -14,12 +14,12 @@ public class Input {
 	 * 读取数据存储到数组中
 	 * @return
 	 */	
-	public static ArrayList<ArrayList<Discrete_Point>> readFile()
+	public static ArrayList<ArrayList<DEM_Point>> readFile()
 	{
 		File file = new File("D:\\java项目\\my_project\\file\\data.txt");
 		BufferedReader reader= null;
 		
-		ArrayList<ArrayList<Discrete_Point>> sum= null;//动态二维数组sum
+		ArrayList<ArrayList<DEM_Point>> sum= null;//动态二维数组sum
 		//ArrayList<Double> Xs=new ArrayList<Double>();//数组X
 		//ArrayList<Double> Ys=new ArrayList<Double>();//数组Y
 		//ArrayList<Double> Zs=new ArrayList<Double>();//数组Z
@@ -32,8 +32,8 @@ public class Input {
 			int count = 0;
 			
 			//将点存储到动态数组中
-			sum = new ArrayList<ArrayList<Discrete_Point>>();
-			ArrayList<Discrete_Point> points = null;
+			sum = new ArrayList<ArrayList<DEM_Point>>();
+			ArrayList<DEM_Point> points = null;
 			while((tempString = reader.readLine())!= null)
 			{
 				//System.out.println(tempString);
@@ -41,7 +41,7 @@ public class Input {
 				
 				Double[] filePoint = new Double[str.length-1];
 				//System.out.println(str.length-1);
-				points = new ArrayList<Discrete_Point>();
+				points = new ArrayList<DEM_Point>();
 
 				for(int i = 0; i<str.length-1; i++)
 				{
@@ -50,7 +50,7 @@ public class Input {
 				}
 				if(count<144)
 				{
-					points.add(new Discrete_Point(filePoint[0], filePoint[1], filePoint[2]));
+					points.add(new DEM_Point(filePoint[0], filePoint[1], filePoint[2]));
 					//System.out.println(filePoint[0]+ filePoint[1]+ filePoint[2]);
 					count++;
 					sum.add(points);
@@ -80,7 +80,7 @@ public class Input {
 	}
 	
 	/*public static void main(String[] args) {
-		ArrayList<ArrayList<Discrete_Point>> sum = readFile();
+		ArrayList<ArrayList<DEM_Point>> sum = readFile();
 		System.out.println(sum);
 		System.out.println("文件导入成功");
 	}*/

@@ -6,34 +6,32 @@ import java.util.stream.Collectors;
 
 import bean.DEM_Point;
 import in_and_out.Input;
-import bean.Discrete_Point;
-
 
 public class meshing {
 	
 	/**
-	 * È·¶¨Õ¤¸ñÍøµãµÄ×ø±ê
+	 * çº­î†¼ç•¾éå‘®ç‰¸ç¼ƒæˆ å£é¨å‹«æ½—éï¿½
 	 * @return
 	 */
 	public static ArrayList<DEM_Point> border()
 	//public static void border()
 	{
-		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();
+		ArrayList<ArrayList<DEM_Point>> sum = Input.readFile();
 		//System.out.println(sum);
-		double[] Xs = new double [sum.size()];//Ò»Î¬Êı×éXs
-		double[] Ys = new double [sum.size()];//Êı×éYs
-		List<Discrete_Point> points = null;
+		double[] Xs = new double [sum.size()];//æ¶“ï¿½ç¼å­˜æšŸç¼åˆ‹s
+		double[] Ys = new double [sum.size()];//éæ‰®ç²Ys
+		List<DEM_Point> points = null;
 		for(int i = 0; i < sum.size(); i++)
 		{
-			points = new ArrayList<Discrete_Point>(sum.get(i));
+			points = new ArrayList<DEM_Point>(sum.get(i));
 			//System.out.println(points);
-			List<Double> X = points.stream().map(Discrete_Point::getX).collect(Collectors.toList());
+			List<Double> X = points.stream().map(DEM_Point::getX).collect(Collectors.toList());
 			Xs[i] = X.get(0);
-			List<Double> Y = points.stream().map(Discrete_Point::getY).collect(Collectors.toList());
+			List<Double> Y = points.stream().map(DEM_Point::getY).collect(Collectors.toList());
 			Ys[i] = Y.get(0);
 		}
 		
-		//ÉèÖÃ±ß½ç·¶Î§
+		//ç’å‰§ç–†æˆåœ­æ™«é‘¼å†¨æ´¿
 		double Xmax = Xs[0];
 		double Ymax = Ys[0];
 		double Xmin = Xs[0];
@@ -56,12 +54,12 @@ public class meshing {
 		int demXmin = (int) Xmin;
 		int demYmin = (int) Ymin;
 		
-		//Éè¸ñÍø³ß´çÈ¡5
+		//ç’ç‚¬ç‰¸ç¼ƒæˆæ˜‚ç€µç¨¿å½‡5
 		int numX = (int) ((Xmax-Xmin)/5+1);
 		int numY = (int) ((Ymax-Ymin)/5+1);
 		//System.out.println(numX + "  " + numY);
 		
-		//¼ÆËã¸ñÍøµã×ø±ê
+		//ç’ï¼„ç•»éè‚©ç¶‰éç‘°æ½—éï¿½
 		double[] demXs = new double[numX];
 		double[] demYs = new double[numY];
 		ArrayList<DEM_Point> demPoints = new ArrayList<DEM_Point>();

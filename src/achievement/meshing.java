@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import bean.DEM_Point;
 import in_and_out.Input;
-import bean.Discrete_Point;
-
 
 public class meshing {
 	
@@ -18,18 +16,18 @@ public class meshing {
 	public static ArrayList<DEM_Point> border()
 	//public static void border()
 	{
-		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();
+		ArrayList<ArrayList<DEM_Point>> sum = Input.readFile();
 		//System.out.println(sum);
 		double[] Xs = new double [sum.size()];//一维数组Xs
 		double[] Ys = new double [sum.size()];//数组Ys
-		List<Discrete_Point> points = null;
+		List<DEM_Point> points = null;
 		for(int i = 0; i < sum.size(); i++)
 		{
-			points = new ArrayList<Discrete_Point>(sum.get(i));
+			points = new ArrayList<DEM_Point>(sum.get(i));
 			//System.out.println(points);
-			List<Double> X = points.stream().map(Discrete_Point::getX).collect(Collectors.toList());
+			List<Double> X = points.stream().map(DEM_Point::getX).collect(Collectors.toList());
 			Xs[i] = X.get(0);
-			List<Double> Y = points.stream().map(Discrete_Point::getY).collect(Collectors.toList());
+			List<Double> Y = points.stream().map(DEM_Point::getY).collect(Collectors.toList());
 			Ys[i] = Y.get(0);
 		}
 		

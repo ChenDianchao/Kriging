@@ -8,16 +8,15 @@ import java.text.DecimalFormat;
 
 import bean.DEM_Point;
 import in_and_out.Input;
-import bean.Discrete_Point;
 import achievement.meshing;
 
 public class KrigingCore {
 	
 	/**
-	 * 克里金法
+	 * 鍏嬮噷閲戞硶
 	 * @return
 	 */
-	//拟合函数    初步估算变程a=30.000  基台值为13.500  块金常数为0.000
+	//鎷熷悎鍑芥暟    鍒濇浼扮畻鍙樼▼a=30.000  鍩哄彴鍊间负13.500  鍧楅噾甯告暟涓�0.000
 	/*public static void fitting(double[][] z,double[][] h)
 	{
 		//temp = fitting(data,ZD);
@@ -40,7 +39,7 @@ public class KrigingCore {
 		}
 		//System.out.println(Zmax + "  " + Zmin);
 	
-		for(int k = 5; k < ( Zmax + 5 ); k += 5) //k为步长
+		for(int k = 5; k < ( Zmax + 5 ); k += 5) //k涓烘闀�
 		{	
 			int count = 0 ;
 			double distance = 0;
@@ -66,26 +65,27 @@ public class KrigingCore {
 		}
 	}*/
 	
-	//半方差函数，也称变差函数。采用球状模型公式（对气象要素插值时通常采用球状模型）
+	//鍗婃柟宸嚱鏁帮紝涔熺О鍙樺樊鍑芥暟銆傞噰鐢ㄧ悆鐘舵ā鍨嬪叕寮忥紙瀵规皵璞¤绱犳彃鍊兼椂閫氬父閲囩敤鐞冪姸妯″瀷锛�
 	public static double function(double h)
 	{
-		double r = 0;//初始化变差函数值
-		if (h == 0) //h为步长
+		double r = 0;//鍒濆鍖栧彉宸嚱鏁板��
+		if (h == 0) //h涓烘闀�
 		{
 			r = 0;
 			} 
 		else if (h > 0 && h <= 30) 
 		{
-			r = 0.000 + 13.500 * ((3 * h * h * h * h) / (4 * 30 * 30 * 30 * 30));
+			r = 0.000 +13.500 *(((3 * h) / (2 * 30))-((h*h*h)/(2*30*30*30)));
+			//r = 0.000 + 13.500 * ((3 * h * h * h * h) / (4 * 30 * 30 * 30 * 30));
 		} 
 		else 
-		{//r=C0+C  基台值
+		{//r=C0+C  鍩哄彴鍊�
 			r = 13.500;
 		}
 		return r;
 
 	}
-	//变差函数  采用高斯模型
+	//鍙樺樊鍑芥暟  閲囩敤楂樻柉妯″瀷
 	/*public double function(double h)
 	{
 		double r = 0;
@@ -103,35 +103,35 @@ public class KrigingCore {
 	public static ArrayList<DEM_Point> gridData()
 	//public static  void gridData()
 	{
-		ArrayList<DEM_Point> demPoints = meshing.border();//网格点数组
-		ArrayList<ArrayList<Discrete_Point>> sum = Input.readFile();//离散点数据
+		ArrayList<DEM_Point> demPoints = meshing.border();//缃戞牸鐐规暟缁�
+		ArrayList<ArrayList<DEM_Point>> sum = Input.readFile();//绂绘暎鐐规暟鎹�
 		//System.out.println(demPoints);
 		
 		int count = 0;
 		int XLength = sum.size();
 		//System.out.println( XLength ) ;
-		ArrayList<DEM_Point> dem = new ArrayList<DEM_Point>();//插值后格网点数据
-		double[] Xs = new double[XLength];//离散点X的数组
-		double[] Ys = new double[XLength];//离散点Y的数组
-		double[] Zs = new double[XLength];//离散点Z的数组
-		double[] rData = new double[XLength + 1];//网格点与离散点之间的距离
-		double[][] ZD = new double[XLength+1][XLength + 1];//离散点Z的差值
-		double[][] data = new double[XLength + 1][XLength + 1];//离散点与离散点的距离
-		List<Discrete_Point> points = null;
+		ArrayList<DEM_Point> dem = new ArrayList<DEM_Point>();//鎻掑�煎悗鏍肩綉鐐规暟鎹�
+		double[] Xs = new double[XLength];//绂绘暎鐐筙鐨勬暟缁�
+		double[] Ys = new double[XLength];//绂绘暎鐐筜鐨勬暟缁�
+		double[] Zs = new double[XLength];//绂绘暎鐐筞鐨勬暟缁�
+		double[] rData = new double[XLength + 1];//缃戞牸鐐逛笌绂绘暎鐐逛箣闂寸殑璺濈
+		double[][] ZD = new double[XLength+1][XLength + 1];//绂绘暎鐐筞鐨勫樊鍊�
+		double[][] data = new double[XLength + 1][XLength + 1];//绂绘暎鐐逛笌绂绘暎鐐圭殑璺濈
+		List<DEM_Point> points = null;
 			
 		//System.out.println(sum.size());
-		//取出离散点并分入数组Xs[],Ys[],Zs[]
+		//鍙栧嚭绂绘暎鐐瑰苟鍒嗗叆鏁扮粍Xs[],Ys[],Zs[]
 		for(int i = 0; i < sum.size(); i++)
 		{
-			points = new ArrayList<Discrete_Point>(sum.get(i));
+			points = new ArrayList<DEM_Point>(sum.get(i));
 			//System.out.println(i+" "+sum.get(i));
-			List<Double> X = points.stream().map(Discrete_Point::getX).collect(Collectors.toList());
+			List<Double> X = points.stream().map(DEM_Point::getX).collect(Collectors.toList());
 			//System.out.println(X);
 			Xs[i] = X.get(0);
 			//System.out.println(Xs[i]);
-			List<Double> Y = points.stream().map(Discrete_Point::getY).collect(Collectors.toList());
+			List<Double> Y = points.stream().map(DEM_Point::getY).collect(Collectors.toList());
 			Ys[i] = Y.get(0);
-			List<Double> Z = points.stream().map(Discrete_Point::getZ).collect(Collectors.toList());
+			List<Double> Z = points.stream().map(DEM_Point::getZ).collect(Collectors.toList());
 			Zs[i] = Z.get(0);
 		}
 			
@@ -140,7 +140,7 @@ public class KrigingCore {
 				System.out.println(Xs[i]);
 			}*/
 				
-			//求出变差函数  即系数矩阵
+			//姹傚嚭鍙樺樊鍑芥暟  鍗崇郴鏁扮煩闃�
 			for(int i = 0; i <= XLength ; i++ )
 			{
 				for(int j = 0; j <= XLength ; j++ )
@@ -153,7 +153,7 @@ public class KrigingCore {
 							
 							TempDis = Math.sqrt( ( (Xs[i]-Xs[j]) * (Xs[i]-Xs[j]) )
 									+ ( (Ys[i]-Ys[j]) * (Ys[i]-Ys[j]) ) );
-							ZD[i][j] =Math.abs(Zs[i] - Zs[j]);
+							ZD[i][j] =Math.abs(Zs[i] - Zs[j]);//姹傜粷瀵瑰��
 							
 							//System.out.println(TempDis);
 							data[i][j] = function (TempDis);
@@ -184,15 +184,15 @@ public class KrigingCore {
 				}
 			}*/
 			
-			Matrix m = new Matrix( data );//根据二维数组data得出矩阵m
-			Matrix M = m.inverse(); //矩阵m求逆后得到的矩阵M
+			Matrix m = new Matrix( data );//鏍规嵁浜岀淮鏁扮粍data寰楀嚭鐭╅樀m
+			Matrix M = m.inverse(); //鐭╅樀m姹傞�嗗悗寰楀埌鐨勭煩闃礛
 			
 			while(count < demPoints.size())
 			{
 				DEM_Point p = demPoints.get(count++);
-				double xp = p.getX();//格网点X
-				double yp = p.getY();//格网点Y
-				double zp = 0;//格网点Z
+				double xp = p.getX();//鏍肩綉鐐筙
+				double yp = p.getY();//鏍肩綉鐐筜
+				double zp = 0;//鏍肩綉鐐筞
 				//System.out.println(p);
 				for(int k = 0; k <= XLength; k++)
 				{
@@ -207,24 +207,29 @@ public class KrigingCore {
 					}
 					else
 						rData[k] = 1;
+					//System.out.println(rData[k]);
 				}
-				double[] rData2 = new double[XLength + 1];//权重系数λi
+				//System.out.println(" ------------------------------------------");
+				double[] rData2 = new double[XLength + 1];//鏉冮噸绯绘暟位i
 				for( int k = 0; k < (XLength + 1); k++)
 				{
 					for(int k2 = 0; k2 < (XLength + 1); k2++)
 					{
 						rData2[k] += M.get(k, k2) * rData[k2];
 					}
+					//System.out.println(rData2[k]);
 				}
 				
-				for(int k = 0; k < XLength; k++)//得到估计值
+				//System.out.println(" ------------------------------------------");
+				for(int k = 0; k < XLength; k++)//寰楀埌浼拌鍊�
 				{
 					zp += Zs[k]*rData2[k];
+					//System.out.println(rData2[k]);
 					//System.out.println(Zs[k] +" "+ rData2[k]+" "+ count);
 				}
 				
 				DecimalFormat df = new DecimalFormat("###.000");
-				double Zp = Double.parseDouble(df.format(zp));//保留小数点后三位
+				double Zp = Double.parseDouble(df.format(zp));//淇濈暀灏忔暟鐐瑰悗涓変綅
 				//System.out.println(zp+" "+ count);
 				dem.add(new DEM_Point(xp, yp, Zp));	
 			}
@@ -234,9 +239,9 @@ public class KrigingCore {
 
 	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("开始执行操作");
+		System.out.println("寮�濮嬫墽琛屾搷浣�");
 		gridData();
-		System.out.println("完成操作");
+		System.out.println("瀹屾垚鎿嶄綔");
 
 	}*/
 
